@@ -17,8 +17,12 @@
     background-color: #cdcdcd;
     margin: 10px;
     padding: 10px;
+    position: relative;
 }
 
+.userName-wrapper {
+    margin-bottom: 20px;
+}
 .card-wrapper .user-wrapper .user-img-wrapper {
     width: 240px;
     height: 240px;
@@ -38,4 +42,12 @@
 
 .card-wrapper ul li {
    list-style-type: none;
+}
+
+.user-wrapper a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
 }
