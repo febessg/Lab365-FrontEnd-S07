@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './Form.css';
 import UserCard from '../userCard/userCard';
+import { UserContext } from '../../assets/contexts/UserContext';
 
 function Form() {
     const [formData, setformData] = useState({
@@ -10,22 +11,18 @@ function Form() {
         password: ""
     });
 
-    const [userList, setUserList] = useState([]);
+    const {userList, setUserList, setUser} = useContext(UserContext);
 
     const handleInput = (event) => {
-        event.preventDefault();
-
         const {value, id} = event.target;
-
-        const data = {...formData, [id]: value};
-        setformData(data);
+        setformData({...formData, [id]: value});
     }
    
     const handleSubmit = (event) => {
         event.preventDefault();
         if(isFormValid()) {
-            const newUserList = [...userList, formData];
-            setUserList(newUserList);
+            setUser(formData);
+            setUserList([...userList, formData]);
             alert(`${formData.nickName} logado(a) com sucesso`)
             console.log(userList);
         } else {
@@ -51,17 +48,17 @@ function Form() {
         <div className="container-wrapper">
             <form className='form-wrapper' onSubmit={handleSubmit}>
                 <label htmlFor="nickName">Nickname</label>
-                <input type="text" id="nickName" placeholder='Digite seu usuário' onInput={handleInput}/>
+                <input type="text" id="nickName" placeholder='Digite seu usuário' onChange={handleInput}/>
                 <label htmlFor="age">Idade</label>
-                <input type="text" id="age" placeholder='Digite sua idade' onInput={handleInput}/>
+                <input type="text" id="age" placeholder='Digite sua idade' onChange={handleInput}/>
                 <label htmlFor="email">E-mail</label>
-                <input type="email" id="email" placeholder='Digite seu e-mail' onInput={handleInput}/>
+                <input type="email" id="email" placeholder='Digite seu e-mail' onChange={handleInput}/>
                 <label htmlFor="password">Senha</label>
-                <input type="password" id="password" placeholder='Digite sua senha' onInput={handleInput}/>
+                <input type="password" id="password" placeholder='Digite sua senha' onChange={handleInput}/>
                 <button type="submit">Cadastrar</button>
             </form>
             <div className='userCard-wrapper'>
-                <UserCard userList={userList}></UserCard>
+                <UserCard/>
             </div>
         </div>
     );

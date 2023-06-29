@@ -1,11 +1,13 @@
 import './UserCard.css';
-import propTypes from 'prop-types';
 import heart from '../../assets/images/heart.png';
 import heartFull from '../../assets/images/heart-full.png';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../assets/contexts/UserContext';
 
 
-function userCard({userList}) {
+function userCard() {
+    const { userList } = useContext(UserContext);
+
     const [like, setLike] = useState(<img className='likeImg' src={heart} alt="Like"/>)
 
     const [totalLikes, setTotalLikes] = useState(0);
@@ -14,9 +16,7 @@ function userCard({userList}) {
         
         setLike(<img className='likeImg' src={heartFull} alt="Like"/>)
         setTotalLikes(totalLikes + 1)            
-      
-    }
-    
+    };
 
     return (  
         <>
@@ -45,7 +45,3 @@ function userCard({userList}) {
 }
 
 export default userCard;
-
-userCard.propTypes = {
-    userList: propTypes.array    
-}
